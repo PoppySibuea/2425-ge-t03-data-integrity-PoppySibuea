@@ -38,14 +38,16 @@ public class Driver1 {
             }
         }
     
-        for(Course course : courses){
-            System.out.println(course.toString());
+        for (int i = courses.size() - 1; i >= 0; i--) {
+            System.out.println(courses.get(i).toString());
         }
-        for(Student student : stu){
-            System.out.println(student.toString());
+
+        for (int i = 0; i < stu.size(); i++) {
+            System.out.println(stu.get(i).toString());
         }
-        for(Enrollment enroolent : enrol){
-            System.out.println(enroolent.toString());
+
+        for (int i = 0; i < enrol.size(); i++) {
+            System.out.println(enrol.get(i).toString());
         }
         sc.close();
     }
