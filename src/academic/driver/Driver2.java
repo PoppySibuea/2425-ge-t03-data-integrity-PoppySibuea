@@ -1,8 +1,8 @@
 package academic.driver;
 
 /**
- * @author NIM Nama
- * @author NIM Nama
+ * @author 12S23026 - Arif Doloksaribu
+ * @author 12S23004 - Poppy Sibuea
  */
 public class Driver2 {
 
