@@ -3,84 +3,81 @@ package academic.driver;
 import academic.model.Course;
 import academic.model.Student;
 import academic.model.Enrollment;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
-/**
- * @author 12S23004 - Poppy Sibuea
- * @author 12S23026 - Arif Doloksaribu
- */
 public class Driver2 {
-
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        ArrayList<Course> courses = new ArrayList<>();
-        ArrayList<Student> students = new ArrayList<>();
-        ArrayList<Enrollment> enrollments = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
 
-        while (true) {
-            String input = sc.nextLine();
-            if (input.equals("---")) {
-                break;
-            }
+        List<Course> courses = new ArrayList<>();
+        List<Student> students = new ArrayList<>();
+        List<Enrollment> enrollments = new ArrayList<>();
+        List<String> errors = new ArrayList<>();
 
-            String[] parts = input.split("#");
-            String command = parts[0];
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.equals("---")) break;
 
-            switch (command) {
-                case "course-add":
-                    courses.add(new Course(parts[1], parts[2], Integer.parseInt(parts[3]), parts[4]));
-                    break;
-                case "student-add":
-                    students.add(new Student(parts[1], parts[2], parts[3], parts[4]));
-                    break;
-                case "enrollment-add":
-                    String courseId = parts[1];
-                    String studentId = parts[2];
-                    String year = parts[3];
-                    String semester = parts[4];
+            String[] parts = line.split("#");
 
-                    if (!courseExists(courses, courseId)) {
-                        System.out.println("invalid course|" + courseId);
-                        continue;
-                    }
-                    if (!studentExists(students, studentId)) {
-                        System.out.println("invalid student|" + studentId);
-                        continue;
-                    }
-                    enrollments.add(new Enrollment(studentId, courseId, year, semester));
-                    break;
+            if (parts[0].equals("course-add")) {
+                // Menambahkan course
+                String id = parts[1];
+                String name = parts[2];
+                int sks = Integer.parseInt(parts[3]);
+                String grade = parts[4];
+                courses.add(new Course(id, name, sks, grade));
+
+            } else if (parts[0].equals("student-add")) {
+                // Menambahkan student
+                String nim = parts[1];
+                String name = parts[2];
+                String tahun = parts[3];
+                String prodi = parts[4];
+                students.add(new Student(nim, name, tahun, prodi));
+
+            } else if (parts[0].equals("enrollment-add")) {
+                // Menambahkan enrollment dengan validasi
+                String courseId = parts[1];
+                String studentId = parts[2];
+                String tahun = parts[3];
+                String semester = parts[4];
+
+                boolean courseExists = courses.stream().anyMatch(c -> c.getId().equals(courseId));
+                boolean studentExists = students.stream().anyMatch(s -> s.getNim().equals(studentId));
+
+                if (!studentExists) {
+                    errors.add("invalid student|" + studentId);
+                }
+                if (!courseExists) {
+                    errors.add("invalid course|" + courseId);
+                }
+                if (courseExists && studentExists) {
+                    enrollments.add(new Enrollment(courseId, studentId, tahun, semester));
+                }
             }
         }
-        
+
+        // Menampilkan error validasi terlebih dahulu
+        for (String error : errors) {
+            System.out.println(error);
+        }
+
+        // Menampilkan courses
         for (Course course : courses) {
             System.out.println(course);
         }
+
+        // Menampilkan students
         for (Student student : students) {
             System.out.println(student);
         }
+
+        // Menampilkan enrollments
         for (Enrollment enrollment : enrollments) {
             System.out.println(enrollment);
         }
-        
-        sc.close();
-    }
 
-    private static boolean courseExists(ArrayList<Course> courses, String id) {
-        for (Course course : courses) {
-            if (course.getId().equals(id)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean studentExists(ArrayList<Student> students, String id) {
-        for (Student student : students) {
-            if (student.getNim().equals(id)) {
-                return true;
-            }
-        }
-        return false;
+        scanner.close();
     }
 }
