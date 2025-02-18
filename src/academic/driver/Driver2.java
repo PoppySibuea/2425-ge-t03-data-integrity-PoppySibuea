@@ -12,7 +12,7 @@ public class Driver2 {
         List<Course> courses = new ArrayList<>();
         List<Student> students = new ArrayList<>();
         List<Enrollment> enrollments = new ArrayList<>();
-        List<String> errors = new ArrayList<>();
+        Set<String> errors = new LinkedHashSet<>(); // Menggunakan LinkedHashSet agar error tidak duplikat dan urut
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -47,7 +47,7 @@ public class Driver2 {
                 boolean studentExists = students.stream().anyMatch(s -> s.getNim().equals(studentId));
 
                 if (!studentExists) {
-                    errors.add("invalid student|" + studentId);
+                    errors.add("invalid student|" + studentId); // Pakai Set agar tidak duplikat
                 }
                 if (!courseExists) {
                     errors.add("invalid course|" + courseId);
@@ -58,7 +58,7 @@ public class Driver2 {
             }
         }
 
-        // Menampilkan error validasi terlebih dahulu
+        // Menampilkan error validasi terlebih dahulu (tanpa duplikat)
         for (String error : errors) {
             System.out.println(error);
         }
