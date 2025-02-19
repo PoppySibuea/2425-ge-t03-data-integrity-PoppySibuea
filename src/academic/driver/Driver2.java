@@ -6,6 +6,10 @@ import academic.model.Student;
 import academic.model.Course;
 import academic.model.Enrollment;
 
+/**
+* @author 12S23004 Poppy Sibuea
+ * @author 12S23026 Arif M. Doloksaribu
+ */
 public class Driver2 {
     public static void main(String[] _args) {
         Scanner sc = new Scanner(System.in);
