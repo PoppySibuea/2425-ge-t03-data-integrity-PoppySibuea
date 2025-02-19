@@ -1,8 +1,8 @@
 package academic.model;
 
 /**
- * @author 12S23026 - Arif Doloksaribu
- * @author 12S23004 - Poppy Sibuea
+* @author 12S23004 Pooppy Sibuea
+ * @author 12S23026 Arif M. Doloksaribu
  */
 public class Course {
 
@@ -33,22 +33,6 @@ public class Course {
 
     public String getGrade() {
         return grade;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setNamaMK(String namaMK) {
-        this.namaMK = namaMK;
-    }
-
-    public void setSks(int sks) {
-        this.sks = sks;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
     }
 
     @Override

@@ -1,8 +1,9 @@
 package academic.model;
+import academic.model.Student;
 
 /**
- * @author 12S23026 - Arif Doloksaribu
- * @author 12S23004 - Poppy Sibuea
+* @author 12S23004 Pooppy Sibuea
+ * @author 12S23026 Arif M. Doloksaribu
  */
 public class Student {
 
@@ -23,6 +24,10 @@ public class Student {
         return nim;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
@@ -33,10 +38,6 @@ public class Student {
 
     public String getProdi() {
         return prodi;
-    }
-    
-    public void setTahun(String tahun) {
-        this.tahun = tahun;
     }
 
     @Override

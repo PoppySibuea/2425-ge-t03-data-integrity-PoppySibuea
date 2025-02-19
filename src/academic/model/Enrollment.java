@@ -1,5 +1,4 @@
 package academic.model;
-
 /**
  * @author 12S23004 - Poppy Sibuea
  * @author 12S23026 - Arif Doloksaribu
@@ -7,47 +6,27 @@ package academic.model;
 public class Enrollment {
 
     // class definition
-    private String Student;
-    private String Course;
+    private Student student;
+    private Course course;
     private String Tahun;
     private String Semester;
     private String Grade = "None";
 
-    public Enrollment(String Student, String Course, String Tahun, String Semester) {
-        this.Student = Student;
-        this.Course = Course;
+    public Enrollment(Course course, Student student,  String Tahun, String Semester) {
+        this.course = course;
+        this.student = student;
         this.Tahun = Tahun;
         this.Semester = Semester;
     }
 
-    public void setStudent(String Student) {
-        this.Student = Student;
+    public String getStudentId() {
+        return student.getNim();
     }
-
-    public void setCourse(String Course) {
-        this.Course = Course;
+    
+    public String getCourseId() {
+        return course.getId();
     }
-
-    public void setTahun(String Tahun) {
-        this.Tahun = Tahun;
-    }
-
-    public void setSemester(String Semester) {
-        this.Semester = Semester;
-    }
-
-    public void setGrade(String Grade) {
-        this.Grade = Grade;
-    }
-
-    public String getStudent() {
-        return Student;
-    }
-
-    public String getCourse() {
-        return Course;
-    }
-
+    
     public String getTahun() {
         return Tahun;
     }
@@ -56,12 +35,16 @@ public class Enrollment {
         return Semester;
     }
 
+    public void setGrade(String Grade) {
+        this.Grade = Grade;
+    }
+
     public String getGrade() {
         return Grade;
     }
 
     @Override
     public String toString() {
-        return Student + "|" + Course + "|" + Tahun + "|" + Semester + "|" + Grade;
+        return course.getId() + "|" + student.getNim() + "|" + Tahun + "|" + Semester + "|" + Grade;
     }
 }

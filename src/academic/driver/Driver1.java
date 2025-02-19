@@ -1,55 +1,114 @@
 package academic.driver;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
+import java.util.LinkedList;
 import academic.model.Student;
 import academic.model.Course;
 import academic.model.Enrollment;
+
 /**
- * @author 12S23026 - Arif Doloksaribu
- * @author 12S23004 - Poppy Sibuea
+* @author 12S23004 Pooppy Sibuea
+ * @author 12S23026 Arif M. Doloksaribu
  */
+
 public class Driver1 {
-
     public static void main(String[] _args) {
+        Scanner sc = new Scanner(System.in);
 
-        // codes
-        Scanner sc = new Scanner (System.in);
-        ArrayList<Course> courses = new ArrayList<Course>();
-        ArrayList<Student> stu = new ArrayList<Student>();
-        ArrayList<Enrollment> enrol = new ArrayList<Enrollment>();
+        LinkedList<Course> courses = new LinkedList<>();
+        LinkedList<Student> students = new LinkedList<>();
+        LinkedList<Enrollment> enrollments = new LinkedList<>();
 
-        while (true){
+        while (true) {
             String input = sc.nextLine();
-            if(input.equals("---")){
-                break;
-            }
+            if (input.equals("---")) break;
 
             String[] data = input.split("#");
 
-            if (data[0].equals("course-add")){
-            courses.add(new Course(data[1], data[2], Integer.parseInt(data[3]), data[4]));
+            switch (data[0]) {
+                case "course-add":
+                    if (!isCourseExists(courses, data[1])) {
+                        courses.addFirst(new Course(data[1], data[2], Integer.parseInt(data[3]), data[4]));
+                    }
+                    break;
+
+                case "student-add":
+                    if (!isStudentExists(students, data[1])) {
+                        students.add(new Student(data[1], data[2], data[3], data[4]));
+                    }
+                    break;
+
+                case "enrollment-add":
+                    Course course = findCourseById(courses, data[1]);
+                    Student student = findStudentById(students, data[2]);
+
+                    if (course != null && student != null && !isEnrollmentExists(enrollments, data[1], data[2], data[3], data[4])) {
+                        enrollments.add(new Enrollment(course, student, data[3], data[4]));
+                    }
+                    break;
+
+                default:
+                    System.out.println("Perintah tidak dikenali!");
+                    break;
             }
-            else if (data[0].equals("student-add")){
-            stu.add(new Student(data[1], data[2], data[3], data[4]));
-            }
-            else if (data[0].equals("enrollment-add")){
-            enrol.add(new Enrollment(data[1], data[2], data[3], data[4]));
-            }
-        }
-    
-        for (int i = courses.size() - 1; i >= 0; i--) {
-            System.out.println(courses.get(i).toString());
         }
 
-        for (int i = 0; i < stu.size(); i++) {
-            System.out.println(stu.get(i).toString());
+        for (Course course : courses) {
+            System.out.println(course);
         }
 
-        for (int i = 0; i < enrol.size(); i++) {
-            System.out.println(enrol.get(i).toString());
+        for (Student student : students) {
+            System.out.println(student);
         }
+
+        for (Enrollment enrollment : enrollments) {
+            System.out.println(enrollment);
+        }
+
         sc.close();
     }
 
+    private static boolean isCourseExists(LinkedList<Course> courses, String id) {
+        for (Course course : courses) {
+            if (course.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean isStudentExists(LinkedList<Student> students, String id) {
+        for (Student student : students) {
+            if (student.getNim().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean isEnrollmentExists(LinkedList<Enrollment> enrollments, String courseId, String studentId, String year, String semester) {
+        for (Enrollment enrollment : enrollments) {
+            if (enrollment.getCourseId().equals(courseId) &&
+                enrollment.getStudentId().equals(studentId) &&
+                enrollment.getTahun().equals(year) &&
+                enrollment.getSemester().equals(semester)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static Student findStudentById( LinkedList<Student> students, String id) {
+        for (Student student : students) {
+            if (student.getNim().equals(id)) return student;
+        }
+        return null;
+    }
+
+    private static Course findCourseById(LinkedList<Course> courses, String id) {
+        for (Course course : courses) {
+            if (course.getId().equals(id)) return course;
+        }
+        return null;
+    }
 }
