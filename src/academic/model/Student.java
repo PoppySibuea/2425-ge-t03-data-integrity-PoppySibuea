@@ -11,7 +11,7 @@ public class Student {
     private String nim;
     private String name;
     private String tahun;
-    private String prodi;
+    private String prodi; 
 
     public Student(String nim, String name, String tahun, String prodi) {
         this.nim = nim;
