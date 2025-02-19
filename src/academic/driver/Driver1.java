@@ -7,7 +7,7 @@ import academic.model.Course;
 import academic.model.Enrollment;
 
 /**
-* @author 12S23004 Pooppy Sibuea
+* @author 12S23004 Poppy Sibuea
  * @author 12S23026 Arif M. Doloksaribu
  */
 

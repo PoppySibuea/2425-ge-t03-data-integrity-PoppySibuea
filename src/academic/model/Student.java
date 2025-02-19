@@ -2,7 +2,7 @@ package academic.model;
 import academic.model.Student;
 
 /**
-* @author 12S23004 Pooppy Sibuea
+* @author 12S23004 Poppy Sibuea
  * @author 12S23026 Arif M. Doloksaribu
  */
 public class Student {
@@ -44,4 +44,4 @@ public class Student {
     public String toString() {
         return nim + "|" + name + "|" + tahun + "|" + prodi;
     }
-}
+} 
